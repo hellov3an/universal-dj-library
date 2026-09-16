@@ -1,0 +1,54 @@
+name: Adapter Request
+description: Request support for a new DJ software
+title: "[Adapter]: "
+labels: ["adapter", "enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Request support for a new DJ software adapter.
+
+  - type: input
+    id: software
+    attributes:
+      label: DJ Software
+      description: "Name and version of the DJ software"
+      placeholder: "e.g., Engine DJ 4.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: direction
+    attributes:
+      label: Direction
+      description: What operations do you need?
+      options:
+        - Import only
+        - Export only
+        - Both (Import & Export)
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case
+      description: How would you use this adapter?
+      placeholder: |
+        e.g., "I want to migrate my Serato library to Rekordbox USB for CDJ use"
+    validations:
+      required: true
+
+  - type: textarea
+    id: format-info
+    attributes:
+      label: Format Information
+      description: |
+        Any technical information about the format (database type, file structure, documentation links).
+        This helps us evaluate feasibility.
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Any other relevant information (hardware used, workflow, etc.)

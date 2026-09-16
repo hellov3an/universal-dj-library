@@ -1,0 +1,17 @@
+# Rust core
+/src-tauri/                 @project-maintainers
+
+# Frontend
+/src/                       @project-maintainers
+
+# Adapters
+/src-tauri/src/infrastructure/adapters/   @project-maintainers
+
+# CI/CD
+/.github/                   @project-maintainers
+
+# Documentation
+/docs/                      @project-maintainers
+README.md                   @project-maintainers
+CONTRIBUTING.md             @project-maintainers
+ARCHITECTURE.md             @project-maintainers

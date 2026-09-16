@@ -1,0 +1,67 @@
+[package]
+name = "universal-dj-library"
+version = "0.1.0"
+description = "Universal DJ Library — Your music belongs to you"
+authors = ["Universal DJ Library Contributors"]
+license = "MIT"
+edition = "2021"
+repository = "https://github.com/user/universal-dj-library"
+
+[lib]
+name = "universal_dj_library_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+# Tauri
+tauri = { version = "2", features = [] }
+tauri-plugin-opener = "2"
+tauri-plugin-dialog = "2"
+tauri-plugin-log = "2"
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Database
+rusqlite = { version = "0.32", features = ["bundled"] }
+
+# Async
+tokio = { version = "1", features = ["full"] }
+
+# Error handling
+thiserror = "2"
+
+# UUID
+uuid = { version = "1", features = ["v4", "serde"] }
+
+# Date/time
+chrono = { version = "0.4", features = ["serde"] }
+
+# File traversal
+walkdir = "2"
+
+# Hashing
+sha2 = "0.10"
+
+# Logging
+log = "0.4"
+lofty = "0.25.2"
+stratum-dsp = "1.0.0"
+rand = "0.8.5"
+sysinfo = "0.39.6"
+quick-xml = { version = "0.42.0", features = ["serialize"] }
+nom = "8.0.0"
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3
+panic = "abort"
+strip = true
+
+[profile.dev]
+# Faster dev builds
+opt-level = 0

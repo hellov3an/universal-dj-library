@@ -1,0 +1,61 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+
+  build-macos:
+    needs: ci
+    uses: ./.github/workflows/build-macos.yml
+    secrets: inherit
+
+  build-windows:
+    needs: ci
+    uses: ./.github/workflows/build-windows.yml
+    secrets: inherit
+
+  release:
+    name: Create Release
+    needs: [build-macos, build-windows]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download macOS builds
+        uses: actions/download-artifact@v4
+        with:
+          name: macos-builds
+          path: artifacts/macos
+
+      - name: Download Windows builds
+        uses: actions/download-artifact@v4
+        with:
+          name: windows-builds
+          path: artifacts/windows
+
+      - name: Generate checksums
+        run: |
+          cd artifacts
+          find . -type f \( -name "*.dmg" -o -name "*.msi" -o -name "*.exe" \) | while read file; do
+            sha256sum "$file" >> checksums.txt
+          done
+          cat checksums.txt
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          generate_release_notes: true
+          files: |
+            artifacts/macos/**/*.dmg
+            artifacts/windows/**/*.msi
+            artifacts/windows/**/*.exe
+            artifacts/checksums.txt
